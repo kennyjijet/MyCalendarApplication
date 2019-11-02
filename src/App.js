@@ -6,7 +6,9 @@ import {
 } from "react-router-dom";
 import { Provider } from 'react-redux';
 import MainLayout from './components/main_layout/MainLayout';
+
 import './App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import store from './store';
 

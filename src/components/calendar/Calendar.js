@@ -8,25 +8,15 @@ class Calendar extends React.Component {
             ...this.props
         }
     }
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
-
     render() {
-        var month = this.state.data.months
+        var month = this.state.data.month
         var daysData = this.state.data.days.map((value, index) => {
             return (<th key={index}>{value}</th>)
         });
-        var dateData = "Data"
         return (
             <div className="calendar">
                 <div className="calendar-container">
-                    <div>month</div>
+                    <div className="month">{month}</div>
                     <table>
                         <thead>
                             <tr>

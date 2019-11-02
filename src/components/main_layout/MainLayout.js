@@ -1,35 +1,30 @@
 import React from 'react';
 import moment from 'moment';
 import ReactLoading from "react-loading";
-
 import CalendarHOC from '../calendar/CalendarHOC';
 import Calendar from '../calendar/Calendar';
+import Navigation from '../navigation/Navigation'
 
-import '../main_layout/style/MainLayout.scss';
+import './style/MainLayout.scss';
 
 
 class MainLayout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            dateContext: moment(),
-            days: ["Su", "M", "Tu", "W", "Th", "F", "Sa"],
-            months: moment.months(),
             screenLoaded: false,
+            months: moment.months(),
+            calendarData: {
+                month: "",
+                days: ["Su", "M", "Tu", "W", "Th", "F", "Sa"],
+            },
+            calendarRow: []
         }
-        this.calendarData = {}
-        this.rows = [];
 
+        this.onClickLeftArrow = this.onClickLeftArrow.bind(this);
     }
     componentDidMount() {
-        setTimeout(() => {
-            /* 12 months */
-            for (var i = 0; i < 12; i++) {
-                var MyCalendar = CalendarHOC(Calendar, this.state)
-                this.rows.push(<MyCalendar key={i} />);
-            }
-            this.setState({ screenLoaded: true });
-        }, 500);
+        this.renderCalendar()
     }
 
     componentWillUnmount() {
@@ -37,6 +32,25 @@ class MainLayout extends React.Component {
         this.rows = []
     }
 
+    renderCalendar() {
+        setTimeout(() => {
+            /* 12 months */
+            for (var i = 0; i < this.state.months.length; i++) {
+                var monthName = this.state.months[i];
+                var tempCalendarData = Object.assign({}, this.state.calendarData);
+                tempCalendarData.month = monthName
+                this.setState({ calendarData: tempCalendarData })
+                var MyCalendar = CalendarHOC(Calendar, this.state.calendarData)
+                this.state.calendarRow.push(<MyCalendar key={i} />);
+            }
+            this.setState({ screenLoaded: true });
+        }, 500);
+    }
+
+    onClickLeftArrow() {
+        this.setState({ calendarRow: [] });
+        //this.setState({ screenLoaded: false });
+    }
 
     render() {
         return (
@@ -44,8 +58,12 @@ class MainLayout extends React.Component {
                 {!this.state.screenLoaded ? (
                     <ReactLoading className="LoadingStyle" type={"bars"} color={"white"} />
                 ) : (
-                        this.rows
-                    )}
+                        <div>
+                            <Navigation onClickLeftArrow={this.onClickLeftArrow} />
+                            {this.state.calendarRow}
+                        </div>
+                    )
+                }
             </div>
         )
     }
