@@ -12,18 +12,23 @@ class MainLayout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            dateMoment: moment(),
             screenLoaded: false,
             months: moment.months(),
             calendarData: {
                 month: "",
                 days: ["Su", "M", "Tu", "W", "Th", "F", "Sa"],
             },
-            calendarRow: []
+            calendarRow: [],
+            navigationData: {}
         }
-
         this.onClickLeftArrow = this.onClickLeftArrow.bind(this);
+        this.onClickRightArrow = this.onClickRightArrow.bind(this);
+        this.onClickTodayArrow = this.onClickTodayArrow.bind(this);
+
     }
     componentDidMount() {
+        alert(this.year())
         this.renderCalendar()
     }
 
@@ -47,10 +52,20 @@ class MainLayout extends React.Component {
         }, 500);
     }
 
-    onClickLeftArrow() {
-        this.setState({ calendarRow: [] });
-        //this.setState({ screenLoaded: false });
+    year() {
+        return this.state.dateMoment.format("Y");
     }
+
+    onClickLeftArrow() {
+        //this.setState({ calendarRow: [] });
+    }
+    onClickRightArrow() {
+        //this.setState({ calendarRow: [] });
+    }
+    onClickTodayArrow() {
+        //this.setState({ calendarRow: [] });
+    }
+
 
     render() {
         return (
@@ -59,7 +74,12 @@ class MainLayout extends React.Component {
                     <ReactLoading className="LoadingStyle" type={"bars"} color={"white"} />
                 ) : (
                         <div>
-                            <Navigation onClickLeftArrow={this.onClickLeftArrow} />
+                            <Navigation
+                                onClickLeftArrow={this.onClickLeftArrow}
+                                onClickRightArrow={this.onClickRightArrow}
+                                onClickTodayArrow={this.onClickTodayArrow}
+
+                            />
                             {this.state.calendarRow}
                         </div>
                     )

@@ -10,7 +10,6 @@ class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
         }
         this.leftArrow = "<"
         this.todayText = "Today"
@@ -23,11 +22,11 @@ class Navigation extends Component {
             <div className="navigation">
                 <>
                     <Navbar bg="light" expand="lg">
-                        <Navbar.Brand></Navbar.Brand>
+                        <Navbar.Brand><img className="profile" alt="Jittarin Jetwiriyanon" src={require('../../assets/profile_freelance.jpg')} /></Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link >Home</Nav.Link>
+                                <Nav >{this.props.year}</Nav>
                             </Nav>
                             <Nav inline>
                                 <Button className="navigationBtn" variant="outline-success" onClick={this.props.onClickLeftArrow}>{this.leftArrow}</Button>
