@@ -1,0 +1,24 @@
+
+@import '../style/variables';
+@import '../style/functions';
+
+
+td,
+tr{
+    padding: 0;
+    margin: 0;
+}
+
+.calendar
+{
+    display: inline-block;
+    padding: 10px;
+}
+
+.calendar-container {
+    width: 300px;
+    height: 300px;
+    background: white;
+}
+
+
