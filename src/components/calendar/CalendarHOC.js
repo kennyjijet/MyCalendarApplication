@@ -7,9 +7,9 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             this.state = {
                 data: data
             }
-            this.month = null;
-            this.weekDays = null;
-            this.days = null;
+            this.month = [];
+            this.weekDays = [];
+            this.days = [];
         }
         initializeCalendarData() {
             var _ = require('lodash');
@@ -22,7 +22,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             var tempDays = this.state.data.days;
             var daysIndex = 0;
             this.days = calendarChunked.map((index) => {
-
                 return (
                     <tr key={index}>
                         {
@@ -39,6 +38,8 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                     } else {
                                         return (<td key={value}>{' '}</td>)
                                     }
+                                } else {
+                                    return (<td key={value}>{' '}</td>)
                                 }
                             })
                         }
