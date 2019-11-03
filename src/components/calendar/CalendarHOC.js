@@ -7,34 +7,69 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             this.state = {
                 data: data
             }
-            this.month = [];
+            this.month = "";
             this.weekDays = [];
             this.days = [];
         }
+
+        isToday(getDate) {
+            var today = new Date();
+            var todayDate = today.getDate();
+            var todayMonth = today.getMonth();
+            var todayYear = today.getFullYear();
+
+            return ((getDate === todayDate) &&
+                (this.state.data.monthsName[todayMonth] === this.month) &&
+                this.state.data.year === todayYear
+            )
+        }
+
+        onClickToMark
+
         initializeCalendarData() {
             var _ = require('lodash');
             this.month = this.state.data.month;
             this.weekDays = this.state.data.weekDays.map((value, index) => {
                 return (<th key={index}>{value}</th>)
             });
-            var calendarIndex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]
-            var calendarChunked = _.chunk(calendarIndex, 7);
-            var tempDays = this.state.data.days;
+            var calendarSize = [
+                1, 2, 3, 4, 5, 6, 7,
+                8, 9, 10, 11, 12, 13, 14,
+                15, 16, 17, 18, 19, 20, 21,
+                22, 23, 24, 25, 26, 27, 28,
+                29, 30, 31, 32, 33, 34, 35,
+                36, 37, 38, 39, 40, 41, 42
+            ];
+
+            var calendarChunked = _.chunk(calendarSize, 7);
+            var days = this.state.data.days;
             var daysIndex = 0;
+
+
             this.days = calendarChunked.map((index) => {
                 return (
                     <tr key={index}>
                         {
                             index.map((value) => {
-                                if (tempDays[daysIndex] != null) {
-                                    var strSplited = tempDays[daysIndex].split("-");
-                                    if (parseInt(strSplited[1]) === (value % 7)) {
+                                if (days[daysIndex] != null) {
+                                    var getDate = days[daysIndex].getDate;
+                                    var getDay = days[daysIndex].getDay;
+                                    if (parseInt(getDay) === (value % 7)) {
                                         daysIndex++;
-                                        var className = "weekDays";
-                                        if ((value % 7) === 0 || (value % 7) === 6) {
-                                            className = "weekEnd";
+                                        var className = [];
+                                        if (this.isToday(getDate)) {
+                                            className.push('currentDay');
                                         }
-                                        return (<td className={className} key={value}>{strSplited[0]}</td>)
+                                        else if ((value % 7) === 0 || (value % 7) === 6) {
+                                            className.push('weekEnd');
+                                        } else {
+                                            className.push('weekDays');
+                                        }
+
+                                        /* status for Holiday Birthday Busy Anniversary */
+
+
+                                        return (<td className={className} key={value}>{getDate}</td>)
                                     } else {
                                         return (<td key={value}>{' '}</td>)
                                     }

@@ -12,20 +12,19 @@ class MainLayout extends React.Component {
         super(props)
         this.state = {
             screenLoaded: false,
-            monthsName: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             calendarData: {
-                year: 2019,
+                year: new Date().getFullYear(),
                 month: "",
                 weekDays: ["Su", "M", "Tu", "W", "Th", "F", "Sa"],
-                days: []
+                days: [],
+                monthsName: ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"],
             },
             calendarRow: []
         }
-
         this.onClickLeftArrow = this.onClickLeftArrow.bind(this);
         this.onClickRightArrow = this.onClickRightArrow.bind(this);
         this.onClickTodayArrow = this.onClickTodayArrow.bind(this);
-
     }
     componentDidMount() {
         this.renderCalendar()
@@ -38,16 +37,17 @@ class MainLayout extends React.Component {
 
     renderCalendar() {
         setTimeout(() => {
-            var daysInOneMonthList = []
-            for (var index = 0; index < this.state.monthsName.length; index++) {
+            var daysInOneMonthList = [];
+            /* Create days in one month */
+            for (var index = 0; index < this.state.calendarData.monthsName.length; index++) {
                 var daysInOneMonth = this.getDaysArray(this.state.calendarData.year, index + 1);
                 daysInOneMonthList.push(daysInOneMonth);
             }
-            console.log(daysInOneMonthList)
-            /* 12 months */
-            for (var i = 0; i < this.state.monthsName.length; i++) {
+
+            /* create calendar */
+            for (var i = 0; i < this.state.calendarData.monthsName.length; i++) {
                 var tempCalendarData = Object.assign({}, this.state.calendarData);
-                tempCalendarData.month = this.state.monthsName[i];
+                tempCalendarData.month = this.state.calendarData.monthsName[i];
                 tempCalendarData.days = daysInOneMonthList[i];
                 var MyCalendar = CalendarHOC(Calendar, tempCalendarData);
                 this.state.calendarRow.push(<MyCalendar key={i} />);
@@ -61,54 +61,79 @@ class MainLayout extends React.Component {
         var date = new Date(year, monthIndex, 1);
         var result = [];
         while (date.getMonth() === monthIndex) {
-            result.push(date.getDate() + '-' + date.getDay());
+            var getDateData = {
+                getDate: date.getDate(),
+                getDay: date.getDay()
+            };
+            result.push(
+                getDateData
+            );
             date.setDate(date.getDate() + 1);
         }
         return result;
     }
 
-    year() {
-        return this.state.calendarData.year;
+    resetPage() {
+        this.setState({ screenLoaded: false });
+        this.setState({ calendarRow: [] });
     }
 
     onClickLeftArrow() {
-        var tempCalendarData = Object.assign({}, this.state.calendarData);
-        tempCalendarData.year -= 1;
-        this.setState({ calendarData: tempCalendarData });
+        this.resetPage();
+        if (this.state.screenLoaded) {
+            var tempCalendarData = Object.assign({}, this.state.calendarData);
+            tempCalendarData.year -= 1;
+            this.setState({ calendarData: tempCalendarData });
+            this.renderCalendar();
+        }
     }
 
     onClickRightArrow() {
-        var tempCalendarData = Object.assign({}, this.state.calendarData);
-        tempCalendarData.year += 1;
-        this.setState({ calendarData: tempCalendarData });
+
+        this.resetPage();
+        if (this.state.screenLoaded) {
+            var tempCalendarData = Object.assign({}, this.state.calendarData);
+            tempCalendarData.year += 1;
+            this.setState({ calendarData: tempCalendarData });
+            this.renderCalendar();
+        }
+
     }
 
     onClickTodayArrow() {
-        var getCurrentYear = new Date().getFullYear()
-        var tempCalendarData = Object.assign({}, this.state.calendarData);
-        tempCalendarData.year = getCurrentYear;
-        this.setState({ calendarData: tempCalendarData });
+        this.resetPage();
+        if (this.state.screenLoaded) {
+            var getCurrentYear = new Date().getFullYear()
+            var tempCalendarData = Object.assign({}, this.state.calendarData);
+            tempCalendarData.year = getCurrentYear;
+            this.setState({ calendarData: tempCalendarData });
+            this.renderCalendar();
+        }
     }
 
 
     render() {
         return (
             <div className="mainLayout">
+                <Navigation
+                    onClickLeftArrow={this.onClickLeftArrow}
+                    onClickRightArrow={this.onClickRightArrow}
+                    onClickTodayArrow={this.onClickTodayArrow}
+                    year={this.state.calendarData.year}
+
+                />
                 {!this.state.screenLoaded ? (
-                    <ReactLoading className="LoadingStyle" type={"bars"} color={"white"} />
+                    <ReactLoading className="AppLoadingStyle" type={"bars"} color={"white"} />
                 ) : (
                         <div>
-                            <Navigation
-                                onClickLeftArrow={this.onClickLeftArrow}
-                                onClickRightArrow={this.onClickRightArrow}
-                                onClickTodayArrow={this.onClickTodayArrow}
-                                year={this.year()}
 
-                            />
                             {this.state.calendarRow}
                         </div>
                     )
                 }
+                <div>
+                    Developed by Jittarin Jetwiriyanon (I want to get a job).
+                </div>
             </div>
         )
     }
