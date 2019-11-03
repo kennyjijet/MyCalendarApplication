@@ -22,9 +22,10 @@ class MainLayout extends React.Component {
             },
             calendarRow: []
         }
-        this.onClickLeftArrow = this.onClickLeftArrow.bind(this);
-        this.onClickRightArrow = this.onClickRightArrow.bind(this);
-        this.onClickTodayArrow = this.onClickTodayArrow.bind(this);
+        this.onClickLeftArrowBtn = this.onClickLeftArrowBtn.bind(this);
+        this.onClickTodayBtn = this.onClickTodayBtn.bind(this);
+        this.onClickRightArrowBtn = this.onClickRightArrowBtn.bind(this);
+
     }
     componentDidMount() {
         this.renderCalendar()
@@ -62,8 +63,8 @@ class MainLayout extends React.Component {
         var result = [];
         while (date.getMonth() === monthIndex) {
             var getDateData = {
-                getDate: date.getDate(),
-                getDay: date.getDay()
+                getDate: date.getDate(), // index of day 1, 2 ,3 ,4...
+                getDay: date.getDay() // index of weekdays Sun, Mon, Tue...
             };
             result.push(
                 getDateData
@@ -78,7 +79,7 @@ class MainLayout extends React.Component {
         this.setState({ calendarRow: [] });
     }
 
-    onClickLeftArrow() {
+    onClickLeftArrowBtn() {
         this.resetPage();
         if (this.state.screenLoaded) {
             var tempCalendarData = Object.assign({}, this.state.calendarData);
@@ -88,7 +89,18 @@ class MainLayout extends React.Component {
         }
     }
 
-    onClickRightArrow() {
+    onClickTodayBtn() {
+        this.resetPage();
+        if (this.state.screenLoaded) {
+            var getCurrentYear = new Date().getFullYear()
+            var tempCalendarData = Object.assign({}, this.state.calendarData);
+            tempCalendarData.year = getCurrentYear;
+            this.setState({ calendarData: tempCalendarData });
+            this.renderCalendar();
+        }
+    }
+
+    onClickRightArrowBtn() {
 
         this.resetPage();
         if (this.state.screenLoaded) {
@@ -100,25 +112,15 @@ class MainLayout extends React.Component {
 
     }
 
-    onClickTodayArrow() {
-        this.resetPage();
-        if (this.state.screenLoaded) {
-            var getCurrentYear = new Date().getFullYear()
-            var tempCalendarData = Object.assign({}, this.state.calendarData);
-            tempCalendarData.year = getCurrentYear;
-            this.setState({ calendarData: tempCalendarData });
-            this.renderCalendar();
-        }
-    }
 
 
     render() {
         return (
             <div className="mainLayout">
                 <Navigation
-                    onClickLeftArrow={this.onClickLeftArrow}
-                    onClickRightArrow={this.onClickRightArrow}
-                    onClickTodayArrow={this.onClickTodayArrow}
+                    onClickLeftArrowBtn={this.onClickLeftArrowBtn}
+                    onClickTodayBtn={this.onClickTodayBtn}
+                    onClickRightArrowBtn={this.onClickRightArrowBtn}
                     year={this.state.calendarData.year}
 
                 />
@@ -126,7 +128,6 @@ class MainLayout extends React.Component {
                     <ReactLoading className="AppLoadingStyle" type={"bars"} color={"white"} />
                 ) : (
                         <div>
-
                             {this.state.calendarRow}
                         </div>
                     )

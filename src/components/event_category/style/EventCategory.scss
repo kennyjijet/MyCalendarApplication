@@ -1,0 +1,45 @@
+@import './variables';
+@import './functions';
+
+
+
+.eventCategory
+{
+    width: 100%;
+    height: 500px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.eventCategoryTitle
+{
+    font-weight: bold;
+    color: $blueGlacial;
+}
+
+.eventCategoryDate
+{
+    font-weight: bold;
+}
+
+.listGroup
+{
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.listGroupItem
+{
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.clostBtn
+{
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    background: $dimGray !important;
+    border-color: $dimGray !important;
+}

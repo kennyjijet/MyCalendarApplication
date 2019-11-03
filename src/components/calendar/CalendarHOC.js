@@ -1,17 +1,38 @@
 import React from 'react';
-import Popup from 'reactjs-popup';
-import Modal from '../modal/Modal';
+import Modal from 'simple-react-modal'
+import EventCategory from '../event_category/EventCategory';
 
 const calendarHOC = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.Component {
         constructor(props) {
             super(props)
             this.state = {
-                data: data
+                data: data,
+                showModal: false
             }
+
             this.month = "";
+            this.year = "";
             this.weekDays = [];
             this.days = [];
+            this.dayToModal = 0;
+
+        }
+
+        getFullDate(getDate) {
+            return String(getDate + '-' + this.month + '-' + this.year)
+        }
+
+        showModalFunction(getDate) {
+            //alert(this.refs[this.getFullDate(getDate)])
+            //this.refs[this.getFullDate(getDate)].style.background = "#222222";
+
+            this.dayToModal = getDate;
+            this.setState({ showModal: true })
+        }
+
+        closeModalFunction() {
+            this.setState({ showModal: false })
         }
 
         isToday(getDate) {
@@ -22,13 +43,31 @@ const calendarHOC = (PassedCalendarComponent, data) =>
 
             return ((getDate === todayDate) &&
                 (this.state.data.monthsName[todayMonth] === this.month) &&
-                this.state.data.year === todayYear
+                this.year === todayYear
             )
+        }
+
+        addAndRemoveHoliday() {
+
+        }
+
+        addAndRemoveBirthday() {
+
+        }
+
+        addAndRemoveBusy() {
+
+        }
+
+        addAndRemoveAnniversary() {
+
         }
 
         initializeCalendarData() {
             var _ = require('lodash');
             this.month = this.state.data.month;
+            this.year = this.state.data.year;
+
             this.weekDays = this.state.data.weekDays.map((value, index) => {
                 return (<th key={index}>{value}</th>)
             });
@@ -54,6 +93,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                 if (days[daysIndex] != null) {
                                     var getDate = days[daysIndex].getDate;
                                     var getDay = days[daysIndex].getDay;
+
                                     if (parseInt(getDay) === (value % 7)) {
                                         daysIndex++;
                                         var className = [];
@@ -66,14 +106,12 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                             className.push('weekDays');
                                         }
                                         /* status for Holiday Birthday Busy Anniversary */
-
                                         return (
-                                            <Popup modal trigger={
-                                                <td className={className} key={value}>
-                                                    {getDate}
-                                                </td>}>
-                                                {close => <Modal close={close} />}
-                                            </Popup>
+
+                                            <td className={className} key={value} onClick={() => this.showModalFunction(getDate)}
+                                                ref={this.getFullDate(getDate)}>
+                                                {getDate}
+                                            </td>
                                         );
                                     } else {
                                         return (<td key={value}>{' '}</td>);
@@ -90,11 +128,21 @@ const calendarHOC = (PassedCalendarComponent, data) =>
         render() {
             this.initializeCalendarData();
             return (
-                <PassedCalendarComponent
-                    month={this.month}
-                    weekDays={this.weekDays}
-                    days={this.days}
-                />
+                <>
+                    <PassedCalendarComponent
+                        month={this.month}
+                        weekDays={this.weekDays}
+                        days={this.days}
+                    />
+                    <Modal show={this.state.showModal} onClose={() => this.closeModalFunction()}>
+                        <EventCategory close={() => this.closeModalFunction()}
+                            day={this.dayToModal}
+                            month={this.month}
+                            year={this.year}
+                        >
+                        </EventCategory>
+                    </Modal>
+                </>
             )
         }
     }

@@ -30,9 +30,9 @@ class Navigation extends Component {
                                 </Nav>
                             </Nav>
                             <Nav inline>
-                                <Button className="navigation-btn" onClick={this.props.onClickLeftArrow}>{this.leftArrow}</Button>
-                                <Button className="navigation-btn" onClick={this.props.onClickTodayArrow}>{this.todayText}</Button>
-                                <Button className="navigation-btn" onClick={this.props.onClickRightArrow}>{this.rightArrow}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickLeftArrowBtn}>{this.leftArrow}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickTodayBtn}>{this.todayText}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickRightArrowBtn}>{this.rightArrow}</Button>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
