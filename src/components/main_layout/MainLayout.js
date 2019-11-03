@@ -38,16 +38,6 @@ class MainLayout extends React.Component {
 
     renderCalendar() {
         setTimeout(() => {
-            /* create calendarData */
-            /* 
-            var monthName = this.state.calendarData.months[i]
-                var tempCalendarData = Object.assign({}, this.state.calendarData);
-                tempCalendarData.month = monthName
-                //tempCalendarData.date = this.getDaysArray(this.state.calendarData.year, i)
-                //tempCalendarData.date.push(this.getDaysArray(this.state.calendarData.year, i + 1))
-                this.setState({ calendarData: tempCalendarData })
-            */
-
             var daysInOneMonthList = []
             for (var index = 0; index < this.state.monthsName.length; index++) {
                 var daysInOneMonth = this.getDaysArray(this.state.calendarData.year, index + 1);
