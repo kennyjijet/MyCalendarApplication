@@ -11,9 +11,9 @@ class Navigation extends Component {
         super(props)
         this.state = {
         }
-        this.leftArrow = "<"
-        this.todayText = "Today"
-        this.rightArrow = ">"
+        this.leftArrow = "<";
+        this.todayText = "Today";
+        this.rightArrow = ">";
 
     }
 
@@ -22,16 +22,17 @@ class Navigation extends Component {
             <div className="navigation">
                 <>
                     <Navbar bg="light" expand="lg">
-                        <Navbar.Brand><img className="profile" alt="Jittarin Jetwiriyanon" src={require('../../assets/profile_freelance.jpg')} /></Navbar.Brand>
+                        <Navbar.Brand><h4>Year {this.props.year}</h4></Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav >{this.props.year}</Nav>
+                                <Nav>
+                                </Nav>
                             </Nav>
                             <Nav inline>
-                                <Button className="navigationBtn" variant="outline-success" onClick={this.props.onClickLeftArrow}>{this.leftArrow}</Button>
-                                <Button className="navigationBtn" variant="outline-success" onClick={this.props.onClickLeftArrow}>{this.todayText}</Button>
-                                <Button className="navigationBtn" variant="outline-success" onClick={this.props.onClickLeftArrow}>{this.rightArrow}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickLeftArrow}>{this.leftArrow}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickTodayArrow}>{this.todayText}</Button>
+                                <Button className="navigation-btn" onClick={this.props.onClickRightArrow}>{this.rightArrow}</Button>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>

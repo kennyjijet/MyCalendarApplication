@@ -1,6 +1,8 @@
 @import './variables';
 @import './functions';
-
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
 
 .navigation
 {
@@ -9,13 +11,28 @@
 
 .profile
 {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 15px;
 }
 
-.navigationBtn
+.navigation-btn
 {
     margin-left: 5px;
     margin-right: 5px;
+    color: white !important;
+    background: $blueGlacial !important;
 }
+
+
+@include media-breakpoint-down(md) {
+    .navigation-btn
+    {
+        width: 100px;
+        text-align: center;
+        margin: 5px auto;
+    }
+}
+
+
+

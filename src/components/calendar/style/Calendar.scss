@@ -5,26 +5,58 @@
 
 td,
 tr{
-    padding: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin: 0;
+    font-weight: bold;
+}
+
+.weekDays:hover{
+    cursor: pointer;
+    background: $blueSoftCyan;
+}
+
+.weekEnd{
+    cursor: pointer;
+    color: $blueGlacial;
+}
+
+.weekEnd:hover{
+    background: $blueSoftCyan;
 }
 
 .calendar
 {
     display: inline-block;
-    padding: 10px;
+    padding: 11px;
 }
 
 .calendar-container 
 {
     width: 300px;
-    height: 300px;
+    height: 250px;
     background: white;
+}
+
+.tableCustom
+{
+    text-align: center;
+    margin: 0px auto;
+}
+
+.table-header
+{
+    background: $lightGrey;
+    color: $darkGray;
 }
 
 .month 
 {
     font-weight: bold;
+    padding-top: 5px; 
+    padding-bottom: 5px; 
     color: $blueGlacial;
 }
 
