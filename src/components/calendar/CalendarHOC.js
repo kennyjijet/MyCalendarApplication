@@ -1,4 +1,6 @@
 import React from 'react';
+import Popup from 'reactjs-popup';
+import Modal from '../modal/Modal';
 
 const calendarHOC = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.Component {
@@ -23,8 +25,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 this.state.data.year === todayYear
             )
         }
-
-        onClickToMark
 
         initializeCalendarData() {
             var _ = require('lodash');
@@ -60,21 +60,26 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                         if (this.isToday(getDate)) {
                                             className.push('currentDay');
                                         }
-                                        else if ((value % 7) === 0 || (value % 7) === 6) {
+                                        else if ((value % 7) === 0 || (value % 7) === 1) {
                                             className.push('weekEnd');
                                         } else {
                                             className.push('weekDays');
                                         }
-
                                         /* status for Holiday Birthday Busy Anniversary */
 
-
-                                        return (<td className={className} key={value}>{getDate}</td>)
+                                        return (
+                                            <Popup modal trigger={
+                                                <td className={className} key={value}>
+                                                    {getDate}
+                                                </td>}>
+                                                {close => <Modal close={close} />}
+                                            </Popup>
+                                        );
                                     } else {
-                                        return (<td key={value}>{' '}</td>)
+                                        return (<td key={value}>{' '}</td>);
                                     }
                                 } else {
-                                    return (<td key={value}>{' '}</td>)
+                                    return (<td key={value}>{' '}</td>);
                                 }
                             })
                         }

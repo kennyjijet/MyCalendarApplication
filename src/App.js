@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch
-} from "react-router-dom";
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import MainLayout from './components/main_layout/MainLayout';
 
