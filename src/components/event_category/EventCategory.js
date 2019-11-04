@@ -15,7 +15,10 @@ class EventCategory extends React.Component {
             <div className="eventCategoryCustomized">
                 <h2 className='eventCategoryTitle'>ADD NEW EVENT</h2>
                 <h3 className='eventCategoryDate'>{
-                    String((String(this.props.day).length < 2 ? '0' + this.props.day : this.props.day) + ' ' + this.props.month + ' ' + this.props.year)
+                    String((String(this.props.day).length < 2 ? '0' +
+                        this.props.day : this.props.day) + ' ' +
+                        this.props.month + ' ' +
+                        this.props.year)
                 }</h3>
                 <ListGroup className='listGroup'>
                     <ListGroup.Item className='listGroupItem holiday'

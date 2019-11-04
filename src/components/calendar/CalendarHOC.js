@@ -12,13 +12,12 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 showModal: false
             }
 
-            this.month = "";
-            this.year = "";
+            this.month = '';
+            this.year = '';
             this.weekDays = [];
             this.days = [];
             this.dayToModal = 0;
             this.categories = ['holiday', 'birthday', 'busy', 'anniversary'];
-
             this.addAndRemoveCategory = this.addAndRemoveCategory.bind(this);
 
 
@@ -50,17 +49,21 @@ const calendarHOC = (PassedCalendarComponent, data) =>
         }
 
         addAndRemoveCategory(getDate, classNameFromModal) {
-            for (var value of this.categories) {
-                if (value === classNameFromModal) {
-                    if (this.refs[this.getFullDate(getDate)].className.indexOf(classNameFromModal) === -1) {
-                        this.refs[this.getFullDate(getDate)].classList.add(value);
-                    } else {
-                        this.refs[this.getFullDate(getDate)].classList.remove(value)
-                    }
-
+            for (var valueDup of this.categories) {
+                if (this.refs[this.getFullDate(getDate)].className.indexOf(classNameFromModal) !== -1) {
+                    this.refs[this.getFullDate(getDate)].classList.remove(valueDup)
+                    return;
                 }
             }
-            this.closeModalFunction();
+
+            for (var valueRemove of this.categories) {
+                this.refs[this.getFullDate(getDate)].classList.remove(valueRemove)
+            }
+            for (var valueAdd of this.categories) {
+                if (valueAdd === classNameFromModal) {
+                    this.refs[this.getFullDate(getDate)].classList.add(valueAdd);
+                }
+            }
         }
 
         initializeCalendarData() {
