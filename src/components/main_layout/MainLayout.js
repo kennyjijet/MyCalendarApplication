@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { markDate } from '../../actions/MarkDate';
+import store from '../../store';
 import ReactLoading from "react-loading";
 import CalendarHOC from '../calendar/CalendarHOC';
 import Calendar from '../calendar/Calendar';
@@ -20,15 +23,40 @@ class MainLayout extends React.Component {
                 monthsName: ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"],
             },
-            calendarRow: []
+            calendarRow: [],
+            markedDateObj: {}
         }
         this.onClickLeftArrowBtn = this.onClickLeftArrowBtn.bind(this);
         this.onClickTodayBtn = this.onClickTodayBtn.bind(this);
         this.onClickRightArrowBtn = this.onClickRightArrowBtn.bind(this);
+        this.markDateWithEventCategory = this.markDateWithEventCategory.bind(this);
+        this.removeMarkedDateEventCategory = this.removeMarkedDateEventCategory.bind(this);
 
     }
+
     componentDidMount() {
         this.renderCalendar()
+    }
+
+    initializeMarkedDate() {
+        this.setState({ markedDateObj: store.getState().markedDates })
+    }
+
+    removeMarkedDateEventCategory(markedDate) {
+        var markedDateData = this.state.markedDateObj;
+        delete markedDateData[markedDate];
+        this.props.markDate(markedDateData);
+        this.setState({ markedDateObj: markedDateData })
+    }
+
+    markDateWithEventCategory(markedDate, eventCategory) {
+        var markedDateData = this.state.markedDateObj;
+        markedDateData[markedDate] = {
+            markedDate: markedDate,
+            eventCategory: eventCategory
+        };
+        this.props.markDate(markedDateData);
+        this.setState({ markedDateObj: markedDateData })
     }
 
     renderCalendar() {
@@ -46,7 +74,9 @@ class MainLayout extends React.Component {
                 tempCalendarData.month = this.state.calendarData.monthsName[i];
                 tempCalendarData.days = daysInOneMonthList[i];
                 var MyCalendar = CalendarHOC(Calendar, tempCalendarData);
-                this.state.calendarRow.push(<MyCalendar key={i} />);
+                this.state.calendarRow.push(<MyCalendar key={i}
+                    markDateWithEventCategory={() => this.markDateWithEventCategory}
+                />);
             }
             this.setState({ screenLoaded: true });
         }, 500);
@@ -107,8 +137,6 @@ class MainLayout extends React.Component {
 
     }
 
-
-
     render() {
         return (
             <div className="mainLayout">
@@ -117,7 +145,6 @@ class MainLayout extends React.Component {
                     onClickTodayBtn={this.onClickTodayBtn}
                     onClickRightArrowBtn={this.onClickRightArrowBtn}
                     year={this.state.calendarData.year}
-
                 />
                 {!this.state.screenLoaded ? (
                     <ReactLoading className="AppLoadingStyle" type={"bars"} color={"white"} />
@@ -135,4 +162,4 @@ class MainLayout extends React.Component {
     }
 }
 
-export default MainLayout
+export default connect(null, { markDate })(MainLayout);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'simple-react-modal'
 import EventCategory from '../event_category/EventCategory';
+import store from '../../store';
 
 const calendarHOC = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.Component {
@@ -58,10 +59,11 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 categories = this.categories.map(str => str + addPrefix);
             }
             // toggle class
-            for (var valueDup of categories) {
-                if (valueDup === tempClassNameFromModal) {
+            for (var classDup of categories) {
+                if (classDup === tempClassNameFromModal) {
                     if (this.refs[this.getFullDate(getDate)].className.indexOf(tempClassNameFromModal) !== -1) {
-                        this.refs[this.getFullDate(getDate)].classList.remove(valueDup);
+                        this.refs[this.getFullDate(getDate)].classList.remove(classDup);
+                        this.props.removeMarkedDateEventCategory(getDate);
                         this.closeModalFunction();
                         return;
                     }
@@ -69,13 +71,15 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             }
 
             // change class
-            for (var valueRemove of categories) {
-                this.refs[this.getFullDate(getDate)].classList.remove(valueRemove);
+            for (var classRemove of categories) {
+                this.refs[this.getFullDate(getDate)].classList.remove(classRemove);
+                this.props.removeMarkedDateEventCategory(getDate);
             }
             // add class
-            for (var valueAdd of categories) {
-                if (valueAdd === tempClassNameFromModal) {
-                    this.refs[this.getFullDate(getDate)].classList.add(valueAdd);
+            for (var classAdd of categories) {
+                if (classAdd === tempClassNameFromModal) {
+                    this.refs[this.getFullDate(getDate)].classList.add(classAdd);
+                    this.props.markDateWithEventCategory(getDate, classAdd);
                 }
             }
             this.closeModalFunction();
@@ -101,8 +105,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             var calendarChunked = _.chunk(calendarSize, 7);
             var days = this.state.data.days;
             var daysIndex = 0;
-
-
             this.days = calendarChunked.map((index) => {
                 return (
                     <tr key={index}>
@@ -122,7 +124,9 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                         } else {
                                             className.push('weekDays');
                                         }
-                                        /* status for Holiday Birthday Busy Anniversary */
+                                        /* event for Holiday Birthday Busy Anniversary */
+                                        //var checkstore.getState().
+
                                         return (
                                             <td className={className} key={value} onClick={() => this.showModalFunction(getDate)}
                                                 ref={this.getFullDate(getDate)}>
@@ -156,7 +160,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                             month={this.month}
                             year={this.year}
                             addAndRemoveCategory={this.addAndRemoveCategory}
-                            tempRef={this.tempRef}
+                            tempRefClassName={this.tempRef.className}
                             categories={this.categories}
                         >
                         </EventCategory>

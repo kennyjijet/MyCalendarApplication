@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import markDateReducer from './markDateReducer';
 
 export default combineReducers({
-    posts: postReducer
+    markedDates: markDateReducer
 });

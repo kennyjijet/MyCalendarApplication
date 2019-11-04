@@ -5,21 +5,17 @@ import './style/EventCategory.scss';
 class EventCategory extends React.Component {
     constructor(props) {
         super(props)
-
         this.classHolidayBtn = ['listGroupItem', 'holiday'];
         this.classBirthdayBtn = ['listGroupItem', 'birthday'];
         this.classBusyBtn = ['listGroupItem', 'busy'];
         this.classAnniversaryBtn = ['listGroupItem', 'anniversary'];
-
-
     }
 
     setBtn() {
-
         for (var value of this.props.categories) {
-            if ((this.props.tempRef.className.indexOf(value) > -1)
+            if ((this.props.tempRefClassName.indexOf(value) > -1)
                 ||
-                (this.props.tempRef.className.indexOf(value + 'Today') > -1)
+                (this.props.tempRefClassName.indexOf(value + 'Today') > -1)
             ) {
                 if (value === 'holiday') {
                     this.classHolidayBtn.push('holidayActive');
@@ -35,10 +31,6 @@ class EventCategory extends React.Component {
                 }
             }
         }
-    }
-
-    resetBtn() {
-
     }
 
     render() {

@@ -1,2 +1,2 @@
-export const FETCH_POSTS = 'FETCH_POSTS';
-export const NEW_POST = 'NEW_POST';
+export const MARK_DATE = 'MARK_DATE';
+export const GET_MARK_DATE = 'GET_MARK_DATE';
