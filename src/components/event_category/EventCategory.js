@@ -5,12 +5,44 @@ import './style/EventCategory.scss';
 class EventCategory extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
 
+        this.classHolidayBtn = ['listGroupItem', 'holiday'];
+        this.classBirthdayBtn = ['listGroupItem', 'birthday'];
+        this.classBusyBtn = ['listGroupItem', 'busy'];
+        this.classAnniversaryBtn = ['listGroupItem', 'anniversary'];
+
+
+    }
+
+    setBtn() {
+
+        for (var value of this.props.categories) {
+            if ((this.props.tempRef.className.indexOf(value) > -1)
+                ||
+                (this.props.tempRef.className.indexOf(value + 'Today') > -1)
+            ) {
+                if (value === 'holiday') {
+                    this.classHolidayBtn.push('holidayActive');
+                }
+                else if (value === 'birthday') {
+                    this.classBirthdayBtn.push('birthdayActive');
+                }
+                else if (value === 'busy') {
+                    this.classBusyBtn.push('busyActive');
+                }
+                else if (value === 'anniversary') {
+                    this.classAnniversaryBtn.push('anniversaryActive');
+                }
+            }
         }
     }
 
+    resetBtn() {
+
+    }
+
     render() {
+        this.setBtn();
         return (
             <div className="eventCategoryCustomized">
                 <h2 className='eventCategoryTitle'>ADD NEW EVENT</h2>
@@ -21,13 +53,13 @@ class EventCategory extends React.Component {
                         this.props.year)
                 }</h3>
                 <ListGroup className='listGroup'>
-                    <ListGroup.Item className='listGroupItem holiday'
+                    <ListGroup.Item className={this.classHolidayBtn}
                         onClick={() => this.props.addAndRemoveCategory(this.props.day, 'holiday')}>Holiday</ListGroup.Item>
-                    <ListGroup.Item className='listGroupItem birthday'
+                    <ListGroup.Item className={this.classBirthdayBtn}
                         onClick={() => this.props.addAndRemoveCategory(this.props.day, 'birthday')}>Birthday</ListGroup.Item>
-                    <ListGroup.Item className='listGroupItem busy'
+                    <ListGroup.Item className={this.classBusyBtn}
                         onClick={() => this.props.addAndRemoveCategory(this.props.day, 'busy')}>Busy</ListGroup.Item>
-                    <ListGroup.Item className='listGroupItem anniversary'
+                    <ListGroup.Item className={this.classAnniversaryBtn}
                         onClick={() => this.props.addAndRemoveCategory(this.props.day, 'anniversary')}>Anniversary</ListGroup.Item>
                 </ListGroup>
                 <Button className='clostBtn' onClick={this.props.close}> CLOSE </Button>

@@ -11,12 +11,12 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 data: data,
                 showModal: false
             }
-
             this.month = '';
             this.year = '';
             this.weekDays = [];
             this.days = [];
             this.dayToModal = 0;
+            this.tempRef = {}
             this.categories = ['holiday', 'birthday', 'busy', 'anniversary'];
             this.addAndRemoveCategory = this.addAndRemoveCategory.bind(this);
 
@@ -29,6 +29,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
 
         showModalFunction(getDate) {
             this.dayToModal = getDate;
+            this.tempRef = this.refs[this.getFullDate(getDate)];
             this.setState({ showModal: true })
         }
 
@@ -49,21 +50,35 @@ const calendarHOC = (PassedCalendarComponent, data) =>
         }
 
         addAndRemoveCategory(getDate, classNameFromModal) {
-            for (var valueDup of this.categories) {
-                if (this.refs[this.getFullDate(getDate)].className.indexOf(classNameFromModal) !== -1) {
-                    this.refs[this.getFullDate(getDate)].classList.remove(valueDup)
-                    return;
+            var addPrefix = 'Today';
+            var tempClassNameFromModal = classNameFromModal;
+            var categories = this.categories;
+            if (this.isToday(getDate)) {
+                tempClassNameFromModal += addPrefix;
+                categories = this.categories.map(str => str + addPrefix);
+            }
+            // toggle class
+            for (var valueDup of categories) {
+                if (valueDup === tempClassNameFromModal) {
+                    if (this.refs[this.getFullDate(getDate)].className.indexOf(tempClassNameFromModal) !== -1) {
+                        this.refs[this.getFullDate(getDate)].classList.remove(valueDup);
+                        this.closeModalFunction();
+                        return;
+                    }
                 }
             }
 
-            for (var valueRemove of this.categories) {
-                this.refs[this.getFullDate(getDate)].classList.remove(valueRemove)
+            // change class
+            for (var valueRemove of categories) {
+                this.refs[this.getFullDate(getDate)].classList.remove(valueRemove);
             }
-            for (var valueAdd of this.categories) {
-                if (valueAdd === classNameFromModal) {
+            // add class
+            for (var valueAdd of categories) {
+                if (valueAdd === tempClassNameFromModal) {
                     this.refs[this.getFullDate(getDate)].classList.add(valueAdd);
                 }
             }
+            this.closeModalFunction();
         }
 
         initializeCalendarData() {
@@ -96,7 +111,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                 if (days[daysIndex] != null) {
                                     var getDate = days[daysIndex].getDate;
                                     var getDay = days[daysIndex].getDay;
-
                                     if (parseInt(getDay) === (value % 7)) {
                                         daysIndex++;
                                         var className = [];
@@ -142,6 +156,8 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                             month={this.month}
                             year={this.year}
                             addAndRemoveCategory={this.addAndRemoveCategory}
+                            tempRef={this.tempRef}
+                            categories={this.categories}
                         >
                         </EventCategory>
                     </Modal>
