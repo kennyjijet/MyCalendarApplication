@@ -17,7 +17,7 @@ tr{
 .currentDay
 {
     cursor: $cursorForPointer;
-    background: red;
+    background: $dimGray;
 }
 
 .weekDays:hover{
@@ -33,6 +33,29 @@ tr{
 .weekEnd:hover{
     background: $blueSoftCyan;
 }
+
+
+.holiday
+{
+    background: $blueSky;
+}
+
+.birthday
+{
+    background: $greenMint;
+}
+
+.busy
+{
+    background: $red;
+}
+
+.anniversary
+{
+    background: $goldBright;
+}
+
+
 
 .calendar
 {

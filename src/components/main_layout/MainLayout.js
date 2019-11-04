@@ -31,11 +31,6 @@ class MainLayout extends React.Component {
         this.renderCalendar()
     }
 
-    componentWillUnmount() {
-        this.calendarData = {}
-        this.rows = []
-    }
-
     renderCalendar() {
         setTimeout(() => {
             var daysInOneMonthList = [];

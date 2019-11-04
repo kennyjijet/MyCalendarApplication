@@ -4,6 +4,7 @@ import EventCategory from '../event_category/EventCategory';
 
 const calendarHOC = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.Component {
+
         constructor(props) {
             super(props)
             this.state = {
@@ -16,6 +17,10 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             this.weekDays = [];
             this.days = [];
             this.dayToModal = 0;
+            this.categories = ['holiday', 'birthday', 'busy', 'anniversary'];
+
+            this.addAndRemoveCategory = this.addAndRemoveCategory.bind(this);
+
 
         }
 
@@ -24,9 +29,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
         }
 
         showModalFunction(getDate) {
-            //alert(this.refs[this.getFullDate(getDate)])
-            //this.refs[this.getFullDate(getDate)].style.background = "#222222";
-
             this.dayToModal = getDate;
             this.setState({ showModal: true })
         }
@@ -47,20 +49,18 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             )
         }
 
-        addAndRemoveHoliday() {
+        addAndRemoveCategory(getDate, classNameFromModal) {
+            for (var value of this.categories) {
+                if (value === classNameFromModal) {
+                    if (this.refs[this.getFullDate(getDate)].className.indexOf(classNameFromModal) === -1) {
+                        this.refs[this.getFullDate(getDate)].classList.add(value);
+                    } else {
+                        this.refs[this.getFullDate(getDate)].classList.remove(value)
+                    }
 
-        }
-
-        addAndRemoveBirthday() {
-
-        }
-
-        addAndRemoveBusy() {
-
-        }
-
-        addAndRemoveAnniversary() {
-
+                }
+            }
+            this.closeModalFunction();
         }
 
         initializeCalendarData() {
@@ -107,7 +107,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                         }
                                         /* status for Holiday Birthday Busy Anniversary */
                                         return (
-
                                             <td className={className} key={value} onClick={() => this.showModalFunction(getDate)}
                                                 ref={this.getFullDate(getDate)}>
                                                 {getDate}
@@ -139,6 +138,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                             day={this.dayToModal}
                             month={this.month}
                             year={this.year}
+                            addAndRemoveCategory={this.addAndRemoveCategory}
                         >
                         </EventCategory>
                     </Modal>

@@ -43,3 +43,29 @@
     background: $dimGray !important;
     border-color: $dimGray !important;
 }
+
+
+.holiday
+{
+
+    cursor: $cursorForPointer;
+    border-color: $blueSky !important;
+}
+
+.birthday
+{
+    cursor: $cursorForPointer;
+    border-color: $greenMint !important;
+}
+
+.busy
+{
+    cursor: $cursorForPointer;
+    border-color: $red !important;
+}
+
+.anniversary
+{
+   cursor: $cursorForPointer;
+    border-color: $goldBright !important;
+}
