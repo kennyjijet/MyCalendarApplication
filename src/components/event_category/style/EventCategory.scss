@@ -36,7 +36,7 @@
 .clostBtn
 {
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold !important;
     text-align: center;
     margin-top: 20px;
     background: $dimGray !important;
