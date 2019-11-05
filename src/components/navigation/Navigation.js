@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
 import { Navbar, Nav, Button } from 'react-bootstrap'
 
 import './style/Navigation.scss'

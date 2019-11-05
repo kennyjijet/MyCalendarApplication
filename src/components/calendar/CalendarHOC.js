@@ -17,7 +17,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             this.weekDays = [];
             this.days = [];
             this.dayToModal = 0;
-            this.tempRef = {}
+            this.classNameList = []
             this.categories = ['holiday', 'birthday', 'busy', 'anniversary'];
             this.addAndRemoveCategory = this.addAndRemoveCategory.bind(this);
 
@@ -30,7 +30,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
 
         showModalFunction(getDate) {
             this.dayToModal = getDate;
-            this.tempRef = this.refs[this.getFullDate(getDate)];
+            this.classNameList = this.refs[this.getFullDate(getDate)].className;
             this.setState({ showModal: true })
         }
 
@@ -94,50 +94,49 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 return (<th key={index}>{value}</th>)
             });
             var calendarSize = [
-                1, 2, 3, 4, 5, 6, 7,
-                8, 9, 10, 11, 12, 13, 14,
-                15, 16, 17, 18, 19, 20, 21,
-                22, 23, 24, 25, 26, 27, 28,
-                29, 30, 31, 32, 33, 34, 35,
-                36, 37, 38, 39, 40, 41, 42
+                0, 1, 2, 3, 4, 5, 6,
+                7, 8, 9, 10, 11, 12, 13,
+                14, 15, 16, 17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27,
+                28, 29, 30, 31, 32, 33, 34,
+                35, 36, 37, 38, 39, 40, 41
             ];
 
             var calendarChunked = _.chunk(calendarSize, 7);
             var days = this.state.data.days;
             var daysIndex = 0;
-            this.days = calendarChunked.map((index) => {
+            this.days = calendarChunked.map((indexRow) => {
                 return (
-                    <tr key={index}>
+                    <tr key={indexRow}>
                         {
-                            index.map((value) => {
+                            indexRow.map((indexCol) => {
                                 if (days[daysIndex] != null) {
                                     var getDate = days[daysIndex].getDate;
                                     var getDay = days[daysIndex].getDay;
-                                    if (parseInt(getDay) === (value % 7)) {
+                                    if (parseInt(getDay) === (indexCol % 7)) {
                                         daysIndex++;
                                         var className = [];
                                         if (this.isToday(getDate)) {
                                             className.push('currentDay');
                                         }
-                                        else if ((value % 7) === 0 || (value % 7) === 1) {
+                                        else if ((indexCol % 7) === 0 || (indexCol % 7) === 6) {
                                             className.push('weekEnd');
                                         } else {
                                             className.push('weekDays');
                                         }
                                         /* event for Holiday Birthday Busy Anniversary */
-                                        //var checkstore.getState().
-
                                         return (
-                                            <td className={className} key={value} onClick={() => this.showModalFunction(getDate)}
+                                            <td className={className} key={indexCol}
+                                                onClick={() => this.showModalFunction(getDate)}
                                                 ref={this.getFullDate(getDate)}>
                                                 {getDate}
                                             </td>
                                         );
                                     } else {
-                                        return (<td key={value}>{' '}</td>);
+                                        return (<td key={indexCol}>{' '}</td>);
                                     }
                                 } else {
-                                    return (<td key={value}>{' '}</td>);
+                                    return (<td key={indexCol}>{' '}</td>);
                                 }
                             })
                         }
@@ -160,7 +159,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                             month={this.month}
                             year={this.year}
                             addAndRemoveCategory={this.addAndRemoveCategory}
-                            tempRefClassName={this.tempRef.className}
+                            tempRefClassName={this.classNameList}
                             categories={this.categories}
                         >
                         </EventCategory>

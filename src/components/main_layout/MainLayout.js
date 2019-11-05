@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { markDate } from '../../actions/MarkDate';
+import { markDate } from '../../actions/markDate';
 import store from '../../store';
 import ReactLoading from "react-loading";
 import CalendarHOC from '../calendar/CalendarHOC';
@@ -76,6 +76,8 @@ class MainLayout extends React.Component {
                 var MyCalendar = CalendarHOC(Calendar, tempCalendarData);
                 this.state.calendarRow.push(<MyCalendar key={i}
                     markDateWithEventCategory={() => this.markDateWithEventCategory}
+                    removeMarkedDateEventCategory={() => this.removeMarkedDateEventCategory}
+
                 />);
             }
             this.setState({ screenLoaded: true });
@@ -88,7 +90,7 @@ class MainLayout extends React.Component {
         var result = [];
         while (date.getMonth() === monthIndex) {
             var getDateData = {
-                getDate: date.getDate(), // index of day 1, 2 ,3 ,4...
+                getDate: date.getDate(), // index of day 0 , 1, 2 ,3 ,4...
                 getDay: date.getDay() // index of weekdays Sun, Mon, Tue...
             };
             result.push(
