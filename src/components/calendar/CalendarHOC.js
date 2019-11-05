@@ -48,6 +48,15 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             )
         }
 
+        isTodayFullDate(fullDate) {
+            var today = new Date();
+            var checkDate = new Date(fullDate);
+            return (checkDate.getDate() === today.getDate() &&
+                checkDate.getMonth() === today.getMonth() &&
+                checkDate.getFullYear() === today.getFullYear()
+            )
+        }
+
         addAndRemoveCategory(getDate, classNameFromModal) {
             var addPrefix = 'Today';
             var tempClassNameFromModal = classNameFromModal;
@@ -125,7 +134,14 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                         /* event for Holiday Birthday Busy Anniversary */
                                         var markedDate = store.getState().markedDates[this.getFullDate(getDate)];
                                         if (markedDate != null) {
-                                            classNameList.push(markedDate.eventCategory);
+                                            if (!this.isTodayFullDate(markedDate.markedDate) &&
+                                                markedDate.eventCategory.indexOf('Today') !== -1) {
+                                                var removeTodayClass = markedDate.eventCategory.replace("Today", "");
+                                                this.props.markDateWithEventCategory(this.getFullDate(getDate), removeTodayClass);
+                                                classNameList.push(removeTodayClass);
+                                            } else {
+                                                classNameList.push(markedDate.eventCategory);
+                                            }
                                         }
                                         return (
                                             <td className={classNameList.toString().replace(",", " ")} key={indexCol}
