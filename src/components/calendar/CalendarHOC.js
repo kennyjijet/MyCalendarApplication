@@ -20,8 +20,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             this.classNameList = []
             this.categories = ['holiday', 'birthday', 'busy', 'anniversary'];
             this.addAndRemoveCategory = this.addAndRemoveCategory.bind(this);
-
-
         }
 
         getFullDate(getDate) {
