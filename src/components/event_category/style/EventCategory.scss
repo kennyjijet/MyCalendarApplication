@@ -1,8 +1,6 @@
 @import './variables';
 @import './functions';
 
-
-
 .eventCategory
 {
     width: 100%;
@@ -47,19 +45,7 @@
 
 .holiday
 {
-
     cursor: $cursorForPointer;
-    border-color: $blueSky !important;
-}
-
-.holiday:hover
-{
-    background: $blueSky !important;
-    border-color: $blueSky !important;
-}
-
-.holiday:active
-{
     background: $blueSky !important;
     border-color: $blueSky !important;
 }
@@ -80,19 +66,8 @@
 {
     cursor: $cursorForPointer;
     border-color: $greenMint !important;
-}
-
-.birthday:hover
-{
     background: $greenMint !important;
-    border-color: $greenMint !important;
-}
-
-
-.birthday:active
-{
-    background: $greenMint !important;
-    border-color: $greenMint !important;
+    
 }
 
 .birthdayActive::before
@@ -109,17 +84,6 @@
 .busy
 {
     cursor: $cursorForPointer;
-    border-color: $red !important;
-}
-
-.busy:hover
-{
-    background: $red !important;
-    border-color: $red !important;
-}
-
-.busy:active
-{
     background: $red !important;
     border-color: $red !important;
 }
@@ -138,17 +102,6 @@
 .anniversary
 {
    cursor: $cursorForPointer;
-    border-color: $goldBright !important;
-}
-
-.anniversary:hover
-{
-    background: $goldBright !important;
-    border-color: $goldBright !important;
-}
-
-.anniversary:active
-{
     background: $goldBright !important;
     border-color: $goldBright !important;
 }
