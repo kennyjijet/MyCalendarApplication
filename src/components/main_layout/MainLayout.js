@@ -42,17 +42,17 @@ class MainLayout extends React.Component {
         this.setState({ markedDateObj: store.getState().markedDates })
     }
 
-    removeMarkedDateEventCategory(markedDate) {
+    removeMarkedDateEventCategory(getFullMarkedDate) {
         var markedDateData = this.state.markedDateObj;
-        delete markedDateData[markedDate];
+        delete markedDateData[getFullMarkedDate];
         this.props.markDate(markedDateData);
         this.setState({ markedDateObj: markedDateData })
     }
 
-    markDateWithEventCategory(markedDate, eventCategory) {
+    markDateWithEventCategory(getFullMarkedDate, eventCategory) {
         var markedDateData = this.state.markedDateObj;
-        markedDateData[markedDate] = {
-            markedDate: markedDate,
+        markedDateData[getFullMarkedDate] = {
+            markedDate: getFullMarkedDate,
             eventCategory: eventCategory
         };
         this.props.markDate(markedDateData);
@@ -75,8 +75,8 @@ class MainLayout extends React.Component {
                 tempCalendarData.days = daysInOneMonthList[i];
                 var MyCalendar = CalendarHOC(Calendar, tempCalendarData);
                 this.state.calendarRow.push(<MyCalendar key={i}
-                    markDateWithEventCategory={() => this.markDateWithEventCategory}
-                    removeMarkedDateEventCategory={() => this.removeMarkedDateEventCategory}
+                    markDateWithEventCategory={this.markDateWithEventCategory}
+                    removeMarkedDateEventCategory={this.removeMarkedDateEventCategory}
 
                 />);
             }

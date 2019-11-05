@@ -63,7 +63,7 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                 if (classDup === tempClassNameFromModal) {
                     if (this.refs[this.getFullDate(getDate)].className.indexOf(tempClassNameFromModal) !== -1) {
                         this.refs[this.getFullDate(getDate)].classList.remove(classDup);
-                        this.props.removeMarkedDateEventCategory(getDate);
+                        this.props.removeMarkedDateEventCategory(this.getFullDate(getDate));
                         this.closeModalFunction();
                         return;
                     }
@@ -73,13 +73,14 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             // change class
             for (var classRemove of categories) {
                 this.refs[this.getFullDate(getDate)].classList.remove(classRemove);
-                this.props.removeMarkedDateEventCategory(getDate);
+                this.props.removeMarkedDateEventCategory(this.getFullDate(this.getFullDate(getDate)));
             }
+
             // add class
             for (var classAdd of categories) {
                 if (classAdd === tempClassNameFromModal) {
                     this.refs[this.getFullDate(getDate)].classList.add(classAdd);
-                    this.props.markDateWithEventCategory(getDate, classAdd);
+                    this.props.markDateWithEventCategory(this.getFullDate(getDate), classAdd);
                 }
             }
             this.closeModalFunction();
@@ -115,18 +116,22 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                     var getDay = days[daysIndex].getDay;
                                     if (parseInt(getDay) === (indexCol % 7)) {
                                         daysIndex++;
-                                        var className = [];
+                                        var classNameList = [];
                                         if (this.isToday(getDate)) {
-                                            className.push('currentDay');
+                                            classNameList.push('currentDay');
                                         }
                                         else if ((indexCol % 7) === 0 || (indexCol % 7) === 6) {
-                                            className.push('weekEnd');
+                                            classNameList.push('weekEnd');
                                         } else {
-                                            className.push('weekDays');
+                                            classNameList.push('weekDays');
                                         }
                                         /* event for Holiday Birthday Busy Anniversary */
+                                        var markedDate = store.getState().markedDates[this.getFullDate(getDate)];
+                                        if (markedDate != null) {
+                                            classNameList.push(markedDate.eventCategory);
+                                        }
                                         return (
-                                            <td className={className} key={indexCol}
+                                            <td className={classNameList.toString().replace(",", " ")} key={indexCol}
                                                 onClick={() => this.showModalFunction(getDate)}
                                                 ref={this.getFullDate(getDate)}>
                                                 {getDate}
