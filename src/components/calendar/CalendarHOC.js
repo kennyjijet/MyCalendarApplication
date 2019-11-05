@@ -88,7 +88,6 @@ const calendarHOC = (PassedCalendarComponent, data) =>
             var _ = require('lodash');
             this.month = this.state.data.month;
             this.year = this.state.data.year;
-
             this.weekDays = this.state.data.weekDays.map((value, index) => {
                 return (<th key={index}>{value}</th>)
             });
