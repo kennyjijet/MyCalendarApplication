@@ -4,7 +4,7 @@ import EventCategory from '../event_category/EventCategory';
 import store from '../../store';
 
 const calendarHOC = (PassedCalendarComponent, data) =>
-    class CalendarHOC extends React.Component {
+    class CalendarHOC extends React.PureComponent {
 
         constructor(props) {
             super(props)

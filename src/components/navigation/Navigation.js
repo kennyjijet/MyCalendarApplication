@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap'
 
 import './style/Navigation.scss'
 
 
 
-class Navigation extends Component {
+class Navigation extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

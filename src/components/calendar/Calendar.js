@@ -1,7 +1,7 @@
 import React from 'react';
 import '../calendar/style/Calendar.scss';
 
-class Calendar extends React.Component {
+class Calendar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

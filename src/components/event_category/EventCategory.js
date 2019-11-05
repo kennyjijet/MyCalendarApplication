@@ -2,7 +2,7 @@ import React from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import './style/EventCategory.scss';
 
-class EventCategory extends React.Component {
+class EventCategory extends React.PureComponent {
     constructor(props) {
         super(props)
         this.classHolidayBtn = ['listGroupItem', 'holiday'];
