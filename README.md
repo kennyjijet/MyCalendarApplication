@@ -1,3 +1,8 @@
+
+This project has been developed with ReactJS by Jittarin Jetwiriyanon.
+The calendar application.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
