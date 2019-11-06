@@ -1,5 +1,5 @@
 orbs:
-  react: "circleci/node@1.1.6"
+  react: "thefrontside/react@dev:alpha"
 version: 2.1
 workflows:
   push:
