@@ -3,7 +3,7 @@ import Modal from 'simple-react-modal'
 import EventCategory from '../event_category/EventCategory';
 import store from '../../store';
 
-const calendarHOC = (PassedCalendarComponent, data) =>
+const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.PureComponent {
 
         constructor(props) {
@@ -132,15 +132,15 @@ const calendarHOC = (PassedCalendarComponent, data) =>
                                             classNameList.push('weekDays');
                                         }
                                         /* event for Holiday Birthday Busy Anniversary */
-                                        var markedDate = store.getState().markedDates[this.getFullDate(getDate)];
-                                        if (markedDate != null) {
-                                            if (!this.isTodayFullDate(markedDate.markedDate) &&
-                                                markedDate.eventCategory.indexOf('Today') !== -1) {
-                                                var removeTodayClass = markedDate.eventCategory.replace("Today", "");
+                                        var markedDateObj = store.getState().markedDates[this.getFullDate(getDate)];
+                                        if (markedDateObj != null) {
+                                            if (!this.isTodayFullDate(markedDateObj.markedDate) &&
+                                                markedDateObj.eventCategory.indexOf('Today') !== -1) {
+                                                var removeTodayClass = markedDateObj.eventCategory.replace("Today", "");
                                                 this.props.markDateWithEventCategory(this.getFullDate(getDate), removeTodayClass);
                                                 classNameList.push(removeTodayClass);
                                             } else {
-                                                classNameList.push(markedDate.eventCategory);
+                                                classNameList.push(markedDateObj.eventCategory);
                                             }
                                         }
                                         return (
@@ -187,4 +187,4 @@ const calendarHOC = (PassedCalendarComponent, data) =>
         }
     }
 
-export default calendarHOC
+export default CalendarHOCWrapper

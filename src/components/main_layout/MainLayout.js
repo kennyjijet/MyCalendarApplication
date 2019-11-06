@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { markDate } from '../../actions/markDate';
 import store from '../../store';
 import ReactLoading from "react-loading";
-import CalendarHOC from '../calendar/CalendarHOC';
+import CalendarHOCWrapper from '../calendar/CalendarHOC';
 import Calendar from '../calendar/Calendar';
 import Navigation from '../navigation/Navigation'
 
@@ -13,6 +13,9 @@ import './style/MainLayout.scss';
 class MainLayout extends React.Component {
     constructor(props) {
         super(props)
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('this is not production');
+        }
         this.state = {
             screenLoaded: false,
             calendarData: {
@@ -73,7 +76,7 @@ class MainLayout extends React.Component {
                 var tempCalendarData = Object.assign({}, this.state.calendarData);
                 tempCalendarData.month = this.state.calendarData.monthsName[i];
                 tempCalendarData.days = daysInOneMonthList[i];
-                var MyCalendar = CalendarHOC(Calendar, tempCalendarData);
+                var MyCalendar = CalendarHOCWrapper(Calendar, tempCalendarData);
                 this.state.calendarRow.push(<MyCalendar key={i}
                     markDateWithEventCategory={this.markDateWithEventCategory}
                     removeMarkedDateEventCategory={this.removeMarkedDateEventCategory}
