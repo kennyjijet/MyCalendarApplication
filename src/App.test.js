@@ -43,8 +43,12 @@ it('render CalendarHOC', () => {
 });
 
 it('render CalendarHOC', () => {
-  const mockCallBack = jest.fn();
+
   const buttons = mount((<Navigation />));
-  buttons.find('Button').at(0).simulate('click');
-  expect(mockCallBack.mock.calls.length).toEqual(0);
+  buttons
+    .find("Button")
+    .last()
+    .simulate("click");
+  expect(buttons.find("Button")).toHaveLength(3)
+
 });
