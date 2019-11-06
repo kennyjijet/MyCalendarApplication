@@ -1,5 +1,5 @@
 orbs:
-  react: "calendar/react@dev:alpha"
+  react: "circleci/node@1.1.6"
 version: 2.1
 workflows:
   push:
