@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { markDate } from '../../actions/markDate';
+import { markDate, fetchData } from '../../actions/markDate';
+import PropTypes from 'prop-types';
 import store from '../../store';
 import ReactLoading from "react-loading";
 import CalendarHOCWrapper from '../calendar/CalendarHOC';
@@ -37,8 +38,27 @@ class MainLayout extends React.Component {
 
     }
 
+    componentWillMount() {
+        //this.props.markDate();
+        //markedDateData[getFullMarkedDate] = {
+
+        //};
+        //this.props.markDate(markedDateData);
+        //console.log(this.props.markDate());
+        this.props.fetchData();
+        //console.log("HEY!!!");
+        console.log(this.props.item);
+    }
+
     componentDidMount() {
         this.renderCalendar()
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+        //if (nextProps.newPost) {
+        //    this.props.posts.unshift(nextProps.newPost);
+        // }
     }
 
     initializeMarkedDate() {
@@ -80,7 +100,6 @@ class MainLayout extends React.Component {
                 this.state.calendarRow.push(<MyCalendar key={i}
                     markDateWithEventCategory={this.markDateWithEventCategory}
                     removeMarkedDateEventCategory={this.removeMarkedDateEventCategory}
-
                 />);
             }
             this.setState({ screenLoaded: true });
@@ -167,4 +186,15 @@ class MainLayout extends React.Component {
     }
 }
 
-export default connect(null, { markDate })(MainLayout);
+MainLayout.propTypes = {
+    fetchData: PropTypes.func.isRequired,
+    markDate: PropTypes.array.isRequired
+};
+
+const mapStateToProps = state => ({
+    item: state
+});
+
+//console.log(mapStateToProps);
+
+export default connect(mapStateToProps, { fetchData })(MainLayout);

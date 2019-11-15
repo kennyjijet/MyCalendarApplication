@@ -132,7 +132,9 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
                                             classNameList.push('weekDays');
                                         }
                                         /* event for Holiday Birthday Busy Anniversary */
-                                        var markedDateObj = store.getState().markedDates[this.getFullDate(getDate)];
+                                        //var markedDateObj = store.getState().markedDates[this.getFullDate(getDate)];
+                                        //console.log(markedDateObj);
+                                        var markedDateObj = null;
                                         if (markedDateObj != null) {
                                             if (!this.isTodayFullDate(markedDateObj.markedDate) &&
                                                 markedDateObj.eventCategory.indexOf('Today') !== -1) {

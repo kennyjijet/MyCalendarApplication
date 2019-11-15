@@ -1,4 +1,4 @@
-import { MARK_DATE, GET_MARK_DATE } from '../actions/types';
+import { MARK_DATE, FETCH_MARK_DATE } from '../actions/types';
 
 const initialState = {
     markedDate: {
@@ -9,11 +9,16 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+    console.log(state);
+    console.log(action.type);
+    console.log(action.payload);
+
+
     switch (action.type) {
         case MARK_DATE:
             return action.payload
-        case GET_MARK_DATE:
-            return state
+        case FETCH_MARK_DATE:
+            return 'test'
         default:
             return state;
     }
