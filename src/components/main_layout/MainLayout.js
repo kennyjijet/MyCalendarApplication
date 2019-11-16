@@ -47,7 +47,7 @@ class MainLayout extends React.Component {
         //console.log(this.props.markDate());
         this.props.fetchData();
         //console.log("HEY!!!");
-        console.log(this.props.item);
+        //console.log(this.props.item);
     }
 
     componentDidMount() {
@@ -197,4 +197,4 @@ const mapStateToProps = state => ({
 
 //console.log(mapStateToProps);
 
-export default connect(mapStateToProps, { fetchData })(MainLayout);
+export default connect(mapStateToProps, { markDate, fetchData })(MainLayout);

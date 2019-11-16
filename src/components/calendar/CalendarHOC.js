@@ -1,11 +1,30 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { markDate, fetchData } from '../../actions/markDate';
 import Modal from 'simple-react-modal'
 import EventCategory from '../event_category/EventCategory';
-import store from '../../store';
 
+/* 
+import React, {Component} from 'react';
+export default function Hoc(HocComponent, data){
+    return class extends Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: data
+            };
+        }
+
+        render(){
+            return (
+                <HocComponent data={this.state.data} {...this.props} />
+            );
+        }
+    }
+*/
 const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
     class CalendarHOC extends React.PureComponent {
-
         constructor(props) {
             super(props)
             this.state = {
@@ -133,8 +152,9 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
                                         }
                                         /* event for Holiday Birthday Busy Anniversary */
                                         //var markedDateObj = store.getState().markedDates[this.getFullDate(getDate)];
+                                        //console.log(this.props.item.markedDates[this.getFullDate(getDate)]);
                                         //console.log(markedDateObj);
-                                        var markedDateObj = null;
+                                        var markedDateObj = this.props.item.markedDates[this.getFullDate(getDate)];
                                         if (markedDateObj != null) {
                                             if (!this.isTodayFullDate(markedDateObj.markedDate) &&
                                                 markedDateObj.eventCategory.indexOf('Today') !== -1) {
@@ -164,6 +184,7 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
                 );
             });
         }
+
         render() {
             this.initializeCalendarData();
             return (
@@ -187,6 +208,14 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
                 </>
             )
         }
+
     }
 
-export default CalendarHOCWrapper
+const mapStateToProps = state => ({
+    item: state
+});
+const composedCalendarHOCWrapper = compose(
+    connect(mapStateToProps, { markDate, fetchData }),
+    CalendarHOCWrapper
+)
+export default composedCalendarHOCWrapper;
