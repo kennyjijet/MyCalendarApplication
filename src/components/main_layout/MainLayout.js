@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { markDate, fetchData } from '../../actions/markDate';
+import { markDate, fetchData, fetchDataFromBackend } from '../../actions/markDate';
 import PropTypes from 'prop-types';
 import store from '../../store';
 import ReactLoading from "react-loading";
@@ -46,8 +46,10 @@ class MainLayout extends React.Component {
         //this.props.markDate(markedDateData);
         //console.log(this.props.markDate());
         this.props.fetchData();
+        this.props.fetchDataFromBackend();
+
         //console.log("HEY!!!");
-        //console.log(this.props.item);
+        console.log(this.props.item);
     }
 
     componentDidMount() {
@@ -185,16 +187,16 @@ class MainLayout extends React.Component {
         )
     }
 }
-
+/*
 MainLayout.propTypes = {
     fetchData: PropTypes.func.isRequired,
     markDate: PropTypes.array.isRequired
 };
+*/
 
 const mapStateToProps = state => ({
     item: state
 });
-
 //console.log(mapStateToProps);
 
-export default connect(mapStateToProps, { markDate, fetchData })(MainLayout);
+export default connect(mapStateToProps, { markDate, fetchData, fetchDataFromBackend })(MainLayout);
