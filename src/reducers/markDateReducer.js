@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
         case MARK_DATE:
             return action.payload
         case FETCH_MARK_DATE:
-            return state
+            return { ...state, items: action.payload }
         default:
             return state;
     }

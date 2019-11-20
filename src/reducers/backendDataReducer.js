@@ -7,7 +7,10 @@ export default function (state = initialState, action) {
     console.log(action);
     switch (action.type) {
         case FETCH_DATA_FROM_BACKEND:
-            return state
+            return {
+                ...state,
+                items: "TEST"
+            }
         default:
             return state;
     }
