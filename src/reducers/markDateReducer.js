@@ -9,12 +9,21 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
+    console.log(action.type);
     switch (action.type) {
         case MARK_DATE:
-            return action.payload
+            return action.payload;
         case FETCH_MARK_DATE:
-            return { ...state, items: action.payload }
+            console.log("HERER");
+            return { test1: 'test', test: 'TEST' };
+        /* 
+         return {
+            ...state,
+            items: action.payload
+        };
+        */
         default:
+            console.log("HERER too");
             return state;
     }
 }

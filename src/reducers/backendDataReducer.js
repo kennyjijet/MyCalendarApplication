@@ -9,8 +9,8 @@ export default function (state = initialState, action) {
         case FETCH_DATA_FROM_BACKEND:
             return {
                 ...state,
-                items: "TEST"
-            }
+                items: action.payload
+            };
         default:
             return state;
     }

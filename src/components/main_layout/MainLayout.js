@@ -46,7 +46,7 @@ class MainLayout extends React.Component {
         //this.props.markDate(markedDateData);
         //console.log(this.props.markDate());
         this.props.fetchData();
-        this.props.fetchDataFromBackend();
+        //this.props.fetchDataFromBackend();
 
         //console.log("HEY!!!");
         console.log(this.props.item);
@@ -57,10 +57,13 @@ class MainLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
-        //if (nextProps.newPost) {
-        //    this.props.posts.unshift(nextProps.newPost);
-        // }
+        console.log(nextProps);
+        if (nextProps.item) {
+            //console.log(nextProps.item.markedDates)
+            this.props.item.markedDates = nextProps.item.markedDates;
+            //this.props.item.markedDates.markedDateList.push(nextProps.test1);
+            console.log(this.props.item);
+        }
     }
 
     initializeMarkedDate() {
@@ -187,12 +190,11 @@ class MainLayout extends React.Component {
         )
     }
 }
-/*
+
 MainLayout.propTypes = {
     fetchData: PropTypes.func.isRequired,
-    markDate: PropTypes.array.isRequired
+    fetchDataFromBackend: PropTypes.func.isRequired
 };
-*/
 
 const mapStateToProps = state => ({
     item: state
