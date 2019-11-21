@@ -18,8 +18,9 @@ export default function (state = initialState, action) {
             return {
                 //items: action.payload
                 //...state
-                ...state, //return current state
+                //...state, //return current state???
                 items: action.payload
+                //test: 'test'
             }
         //{ items: action.payload }
         //return { ...state, items: action.payload }

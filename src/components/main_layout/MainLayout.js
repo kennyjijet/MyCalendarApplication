@@ -57,7 +57,7 @@ class MainLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //console.log(nextProps);
+        console.log(nextProps);
         //if (nextProps) {
         //console.log(this.props.items);
         //console.log(nextProps.item.markedDates)
@@ -66,6 +66,8 @@ class MainLayout extends React.Component {
         //console.log(this.props.item);
         //this.props.item = 
         //}
+        // New Object.
+        console.log("nextProps")
     }
 
     initializeMarkedDate() {
@@ -79,6 +81,8 @@ class MainLayout extends React.Component {
         this.props.markDate(markedDateData);
         //this.setState({ markedDateObj: markedDateData })
         console.log(this.props.items);
+        //console.log(this.props.all);
+
     }
 
     markDateWithEventCategory(getFullMarkedDate, eventCategory) {
@@ -88,7 +92,7 @@ class MainLayout extends React.Component {
             eventCategory: eventCategory
         };
         this.props.markDate(markedDateData);
-        console.log(this.props.items);
+        //console.log(this.props.items);
         //this.setState({ markedDateObj: markedDateData })
     }
 
@@ -202,7 +206,8 @@ MainLayout.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    items: state.markedDates.items
+    items: state.markedDates.items,
+    //all: state
     //items: state
 
 });
