@@ -47,9 +47,9 @@ class MainLayout extends React.Component {
         //console.log(this.props.markDate());
         this.props.fetchData();
         //this.props.fetchDataFromBackend();
-
         //console.log("HEY!!!");
-        console.log(this.props.item);
+        //markedDates
+
     }
 
     componentDidMount() {
@@ -57,34 +57,39 @@ class MainLayout extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        if (nextProps.item) {
-            //console.log(nextProps.item.markedDates)
-            this.props.item.markedDates = nextProps.item.markedDates;
-            //this.props.item.markedDates.markedDateList.push(nextProps.test1);
-            console.log(this.props.item);
-        }
+        //console.log(nextProps);
+        //if (nextProps) {
+        //console.log(this.props.items);
+        //console.log(nextProps.item.markedDates)
+        //this.props.item.markedDates = nextProps.item.markedDates;
+        //this.props.item.markedDates.markedDateList.push(nextProps.test1);
+        //console.log(this.props.item);
+        //this.props.item = 
+        //}
     }
 
     initializeMarkedDate() {
-        this.setState({ markedDateObj: store.getState().markedDates })
+        //this.setState({ markedDateObj: store.getState().markedDates })
+        this.setState({ markedDateObj: {} })
     }
 
     removeMarkedDateEventCategory(getFullMarkedDate) {
-        var markedDateData = this.state.markedDateObj;
+        var markedDateData = this.props.items;
         delete markedDateData[getFullMarkedDate];
         this.props.markDate(markedDateData);
-        this.setState({ markedDateObj: markedDateData })
+        //this.setState({ markedDateObj: markedDateData })
+        console.log(this.props.items);
     }
 
     markDateWithEventCategory(getFullMarkedDate, eventCategory) {
-        var markedDateData = this.state.markedDateObj;
+        var markedDateData = this.props.items;
         markedDateData[getFullMarkedDate] = {
             markedDate: getFullMarkedDate,
             eventCategory: eventCategory
         };
         this.props.markDate(markedDateData);
-        this.setState({ markedDateObj: markedDateData })
+        console.log(this.props.items);
+        //this.setState({ markedDateObj: markedDateData })
     }
 
     renderCalendar() {
@@ -197,7 +202,9 @@ MainLayout.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    item: state
+    items: state.markedDates.items
+    //items: state
+
 });
 //console.log(mapStateToProps);
 

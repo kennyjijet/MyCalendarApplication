@@ -154,7 +154,7 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
                                         //var markedDateObj = store.getState().markedDates[this.getFullDate(getDate)];
                                         //console.log(this.props.item.markedDates[this.getFullDate(getDate)]);
                                         //console.log(markedDateObj);
-                                        var markedDateObj = this.props.item.markedDates[this.getFullDate(getDate)];
+                                        var markedDateObj = this.props.items[this.getFullDate(getDate)];
                                         if (markedDateObj != null) {
                                             if (!this.isTodayFullDate(markedDateObj.markedDate) &&
                                                 markedDateObj.eventCategory.indexOf('Today') !== -1) {
@@ -212,7 +212,7 @@ const CalendarHOCWrapper = (PassedCalendarComponent, data) =>
     }
 
 const mapStateToProps = state => ({
-    item: state
+    items: state.markedDates.items
 });
 const composedCalendarHOCWrapper = compose(
     connect(mapStateToProps, { markDate, fetchData }),
